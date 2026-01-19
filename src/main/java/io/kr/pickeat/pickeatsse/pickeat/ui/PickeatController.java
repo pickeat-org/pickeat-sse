@@ -18,7 +18,7 @@ public class PickeatController {
 
     @GetMapping("/sse/pickeat/{pickeatCode}")
     public SseEmitter connect(@PathVariable String pickeatCode) {
-        SseEmitter emitter = new SseEmitter(60 * 60 * 1000L); // 1시간
+        SseEmitter emitter = new SseEmitter(30 * 60 * 1000L); // 1시간
         sseEmitterMap.computeIfAbsent(pickeatCode, code -> new CopyOnWriteArrayList<>())
                 .add(emitter);
 

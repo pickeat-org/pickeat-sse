@@ -1,4 +1,4 @@
-package io.kr.pickeat.pickeatsse.auth;
+package io.kr.pickeat.pickeatsse.global.auth;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
