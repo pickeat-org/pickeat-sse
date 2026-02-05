@@ -26,7 +26,12 @@ WORKDIR /app
 # 빌드 결과물 복사
 COPY --from=build /app/build/libs/*.jar app.jar
 
+# 서브모듈 설정 파일 복사 (추가!)
+COPY --from=build /app/src/main/resources/config /app/config
+
 EXPOSE 8080
 
 # 실행 (실시간 로그 확인 가능)
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS:-} -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-default} -jar /app/app.jar"]
+# config 디렉토리를 spring.config.additional-location으로 지정
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS:-} -Dspring.profiles.active=${SPRING_ACTIVE_PROFILE:-default} -Dspring.config.additional-location=file:/app/config/ -jar /app/app.jar"]
+
