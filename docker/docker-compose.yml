@@ -4,8 +4,8 @@ services:
       context: ..
       dockerfile: Dockerfile
     restart: always
-    ports:
-      - "80:8080"
+    expose:
+      - "8080"  # 내부 네트워크만 노출
     networks:
       - app-tier
     environment:
@@ -13,4 +13,5 @@ services:
 
 networks:
   app-tier:
-    driver: bridge
+    external: true
+    name: docker_app-tier
