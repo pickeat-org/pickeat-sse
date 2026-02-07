@@ -22,17 +22,6 @@ services:
       - ./nginx/service-url.inc:/etc/nginx/service-url.inc
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
-  nginx-exporter:
-    image: nginx/nginx-prometheus-exporter:latest
-    restart: always
-    command: ["-nginx.scrape-uri","http://nginx:9001/stub_status"]
-    expose:
-      - "9113"
-    networks:
-      - app-tier
-    depends_on:
-      - nginx
-
   certbot:
     image: certbot/certbot
     restart: unless-stopped
