@@ -3,6 +3,7 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile
+    container_name: pickeat-sse
     restart: always
     expose:
       - "8080"  # 내부 네트워크만 노출
@@ -10,7 +11,9 @@ services:
       - app-tier
     environment:
       SPRING_ACTIVE_PROFILE: prod
+      CORS_ALLOWED_ORIGINS: "https://dev.pickeat.io.kr,https://dev.api.pickeat.io.kr,http://localhost:3000"
 
 networks:
   app-tier:
     external: true
+    name: docker_app-tier
