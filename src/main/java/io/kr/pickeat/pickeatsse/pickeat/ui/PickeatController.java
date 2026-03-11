@@ -38,7 +38,8 @@ public class PickeatController {
 
         try {
             emitter.send(SseEmitter.event()
-                    .name("CONNECTED"));
+                    .name("CONNECTED")
+                    .data(""));
         } catch (Exception e) {
             cleanup.run();
         }
@@ -56,7 +57,8 @@ public class PickeatController {
         for (var emitter : sseEmitters) {
             try {
                 emitter.send(SseEmitter.event()
-                        .name("PICKEAT_UPDATED"));
+                        .name("PICKEAT_UPDATED")
+                        .data(""));
             } catch (Exception e) {
                 sseEmitters.remove(emitter);
             }
