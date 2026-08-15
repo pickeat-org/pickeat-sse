@@ -61,6 +61,10 @@ public class SseEmitterRegistry {
         }
     }
 
+    public boolean hasEmitters(String pickeatCode) {
+        return sseEmitterMap.containsKey(pickeatCode);
+    }
+
     private void sendUpdated(String pickeatCode, SseEmitter emitter) {
         try {
             emitter.send(SseEmitter.event()

@@ -1,6 +1,6 @@
 package io.kr.pickeat.pickeatsse.pickeat.infrastructure;
 
-import io.kr.pickeat.pickeatsse.pickeat.application.SseEmitterRegistry;
+import io.kr.pickeat.pickeatsse.pickeat.application.PickeatUpdateBuffer;
 import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PickeatUpdateSubscriber implements MessageListener {
 
-    private final SseEmitterRegistry sseEmitterRegistry;
+    private final PickeatUpdateBuffer pickeatUpdateBuffer;
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
         String pickeatCode = new String(message.getBody(), StandardCharsets.UTF_8);
         log.debug("픽잇 갱신 신호 수신 - pickeatCode={}", pickeatCode);
-        sseEmitterRegistry.broadcast(pickeatCode);
+        pickeatUpdateBuffer.mark(pickeatCode);
     }
 }
